@@ -41,8 +41,23 @@ function createCard(character) {
   console.log(divImage.src);
 }
 
-function createCardHTML() {
+function createCardHTML(character) {
+  const getEpisodesNumbers = (episodes) => {
+    console.log(episodes.map(epi => epi.split("/").at(-1)));
+    return episodes.map(epi => epi.split("/").at(-1)).join(", ");
+  };
 
+  screenSelector.innerHTML += `
+    <div class="card-container">
+        <img src=${character.image}>
+        <div class="data">
+            <div class="data-box name">${character.name}</div>
+            <div class="data-box">${character.status}</div>
+            <div class="data-box">${character.species}</div>
+            <div class="data-box episodes">${getEpisodesNumbers(character.episode)}</div>
+        </div>
+    </div>
+    `;
 }
 
 fetch("https://rickandmortyapi.com/api/character")
@@ -50,6 +65,7 @@ fetch("https://rickandmortyapi.com/api/character")
   .then(data => {
     for (let i = 0; i < data.results.length; i++) {
       const character = data.results[i];
-      createCard(character);
+      // createCard(character);
+      createCardHTML(character);
     }
   });
