@@ -63,9 +63,5 @@ function createCardHTML(character) {
 fetch("https://rickandmortyapi.com/api/character")
   .then(response => response.json())
   .then(data => {
-    for (let i = 0; i < data.results.length; i++) {
-      const character = data.results[i];
-      // createCard(character);
-      createCardHTML(character);
-    }
+    data.results.map(element => createCardHTML(element));
   });
